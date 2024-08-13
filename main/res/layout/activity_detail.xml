@@ -16,7 +16,7 @@
         android:paddingTop="30dp"
         android:paddingStart="20dp"
         android:text="确认是否能正常播放： \n画面与声音正常，无卡顿，无花屏，无黑屏等 \n（播放3~5分钟）"
-        app:layout_constraintEnd_toStartOf="@id/right_side"
+        app:layout_constraintEnd_toStartOf="@id/right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -30,7 +30,7 @@
         android:textStyle="bold"
         android:paddingBottom="8dp"
         android:paddingStart="20dp"
-        app:layout_constraintEnd_toStartOf="@id/right_side"
+        app:layout_constraintEnd_toStartOf="@id/right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text"
         app:layout_constraintHorizontal_bias="0.5"
@@ -43,38 +43,124 @@
         android:textSize="18sp"
         android:paddingBottom="8dp"
         android:paddingStart="20dp"
-        app:layout_constraintEnd_toStartOf="@id/right_side"
+        app:layout_constraintEnd_toStartOf="@id/right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_text"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintWidth_percent="0.66"/>
 
-    <LinearLayout
-        android:id="@+id/right_side"
-        android:orientation="vertical"
+    <ScrollView
+        android:id="@+id/right"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/description_text"
         app:layout_constraintWidth_percent="0.33"
-        tools:ignore="ExtraText">
-
-       <Button
-           android:id="@+id/start_button"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="开始"
-           android:onClick="onStartTaskClicked" />
-
-        <ExpandableListView
-            android:id="@+id/expandable_list_view"
+        android:fillViewport="true" >
+        <FrameLayout
+            android:id="@+id/right_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+            <LinearLayout
+                android:id="@+id/right_side"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:ignore="ExtraText">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/start_task_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="4dp"
+                    android:paddingStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/start_task_subtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始任务"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_marginBottom="16dp"
+                    android:paddingStart="20dp"/>
+
+                <ExpandableListView
+                    android:id="@+id/expandable_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:dividerHeight="1dp"
+                    android:paddingStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/continue_task_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="继续"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="4dp"
+                    android:paddingStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/continue_task_subtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="下一任务"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_marginBottom="16dp"
+                    android:paddingStart="20dp"/>
+
+                <LinearLayout
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/cancel_task_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="取消"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:id="@+id/cancel_task_subtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="返回列表"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </ScrollView>
+
+
+
 
 
 

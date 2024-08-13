@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.format.DateUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
@@ -104,7 +105,11 @@ public class VideoActivity extends AppCompatActivity {
     private void showVideoContent(String title) {
         videoView.setVisibility(View.VISIBLE);
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.twice));
+
+        //String videoUrl = "";
         videoView.start();
+
+        loadingFrame.setVisibility(View.GONE);
 
         titleText.setVisibility(View.VISIBLE);
         appendStyledText(titleText, "标题： ", title);
@@ -120,7 +125,7 @@ public class VideoActivity extends AppCompatActivity {
 
         //titleText.setVisibility(View.VISIBLE);
         totalDurationText.setVisibility(View.VISIBLE);
-        appendStyledText(totalDurationText, "总时长： ", updateTotalDuration());
+        updateTotalDuration();
 
         progressText.setVisibility(View.VISIBLE);
         resolutionText.setVisibility(View.VISIBLE);
@@ -147,13 +152,13 @@ public class VideoActivity extends AppCompatActivity {
         textView.setText(builder);
     }
 
-    private String updateTotalDuration() {
-        final String[] formattedDuration = {""};
+    private void updateTotalDuration() {
         videoView.setOnPreparedListener(mp -> {
             int duration = videoView.getDuration();
-            formattedDuration[0] = formatTime(duration);
+            String formattedDuration = formatTime(duration);
+            appendStyledText(totalDurationText, "总时长: ", formattedDuration);
+            totalDurationText.setVisibility(View.VISIBLE);
         });
-        return formattedDuration[0];
     }
 
     private void startUpdatingTimer() {
@@ -171,8 +176,12 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     private String formatTime(int milliseconds) {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        return formatter.format(new Date(milliseconds));
+        int seconds = milliseconds / 1000;
+        int hours = seconds / 3600;
+        int minutes = (seconds % 3600) / 60;
+        int secs = seconds % 60;
+
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, secs);
     }
 
 }
