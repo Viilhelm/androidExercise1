@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="go_to_second_activity">Go to Second Activity</string>
+    <string name="return_to_mainactivity">Return to MainActivity</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="registration_complete">Registration Complete!</string>
+    <string name="back">Back</string>
+    <string name="toregister">ToRegister</string>
+</resources>
