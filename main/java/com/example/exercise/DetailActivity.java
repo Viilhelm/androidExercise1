@@ -2,6 +2,8 @@ package com.example.exercise;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.CheckBox;
 
@@ -11,7 +13,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class DetailActivity extends AppCompatActivity {
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listHashMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +47,41 @@ public class DetailActivity extends AppCompatActivity {
             titleTextView.setText(title);
             descriptionTextView.setText(description);
         }
+        TextView titleTextView = findViewById(R.id.title_text);
+        TextView descriptionTextView = findViewById(R.id.description_text);
+
+        String title = getIntent().getStringExtra("title");
+        String description = getIntent().getStringExtra("description");
+
+        titleTextView.setText(title);
+        descriptionTextView.setText(description);
+
+        expandableListView = findViewById(R.id.expandable_list);
+        initData();
+        expandableListAdapter = new ExpandableListAdapter(this, listDataHeader, listHashMap);
+        expandableListView.setAdapter(expandableListAdapter);
+
+        LinearLayout cancelContainer = findViewById(R.id.cancel);
+        cancelContainer.setOnClickListener(v -> {
+            finish();
+        });
 
 
-        // 设置CheckBox默认值
-        //CheckBox blackScreenCheckBox = findViewById(R.id.checkbox_black_screen);
-        //CheckBox flowerScreenCheckBox = findViewById(R.id.checkbox_flower_screen);
-        //CheckBox stuckCheckBox = findViewById(R.id.checkbox_stuck);
-        //CheckBox syncCheckBox = findViewById(R.id.checkbox_sync);
-        //CheckBox normalCheckBox = findViewById(R.id.checkbox_normal);
+    }
 
-        //blackScreenCheckBox.setChecked(false);
-        //flowerScreenCheckBox.setChecked(false);
-        //stuckCheckBox.setChecked(false);
-        //syncCheckBox.setChecked(false);
-        //normalCheckBox.setChecked(true);
+    private void initData() {
+        listDataHeader = new ArrayList<>();
+        listHashMap = new HashMap<>();
 
+        listDataHeader.add("播放是否正常");
 
+        List<String> subItems = new ArrayList<>();
+        subItems.add("黑屏");
+        subItems.add("花屏");
+        subItems.add("卡顿");
+        subItems.add("音画不同步");
+        subItems.add("正常");
 
-
+        listHashMap.put(listDataHeader.get(0), subItems);
     }
 }
