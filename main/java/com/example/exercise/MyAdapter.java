@@ -17,10 +17,11 @@ import java.util.List;
 
 public class MyAdapter<T> extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<T> dataList;
-    private int layoutResId;
-    private OnItemClickListener listener;
-    private int selectedPosition = RecyclerView.NO_POSITION;
+    protected List<T> dataList;
+    protected int layoutResId;
+    protected OnItemClickListener listener;
+    protected int selectedPosition = RecyclerView.NO_POSITION;
+    protected String fragmentType;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -29,6 +30,12 @@ public class MyAdapter<T> extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter(List<T> dataList, int layoutResId) {
         this.dataList = dataList;
         this.layoutResId = layoutResId;
+    }
+
+    public MyAdapter(List<T> dataList, int layoutResId, String fragmentType) {
+        this.dataList = dataList;
+        this.layoutResId = layoutResId;
+        this.fragmentType = fragmentType;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -60,13 +67,6 @@ public class MyAdapter<T> extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(selectedPosition);
 
-            if (item instanceof TestItem) {
-                TestItem testItem = (TestItem) item;
-                Intent intent = new Intent(v.getContext(), DetailActivity.class);
-                intent.putExtra("title", testItem.getTitle());
-                intent.putExtra("description", testItem.getDescription());
-                v.getContext().startActivity(intent);
-            }
 
 
         });

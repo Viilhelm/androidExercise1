@@ -44,12 +44,11 @@ public class ContentFragment5_1 extends Fragment {
 
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        MyAdapter<TestItem> adapter = new MyAdapter<>(getDataForOption1(), R.layout.right_list_item_layout);
-        adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+        MyAdapterForFragment5 adapter = new MyAdapterForFragment5(getDataForOption1(), R.layout.right_list_item_layout);
+        adapter.setOnItemClickListener(new MyAdapterForFragment5.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
-                Intent intent = new Intent(getContext(), DetailActivity.class);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
                 startActivity(intent);
             }
         });
